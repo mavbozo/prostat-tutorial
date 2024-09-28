@@ -1,0 +1,5 @@
+{:clean-up-target-dir true
+ :quarto {:code-block-background true
+          :title "Intro to Probability and Statistics"}
+ :base-source-path "src/"
+ :base-target-path "docs/clay/"}
