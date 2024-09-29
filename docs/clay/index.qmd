@@ -92,7 +92,7 @@ In the context of eagle sightings, we use `irandom` function to get a random int
 
 ::: {.printedClojure}
 ```clojure
-50
+22
 
 ```
 :::
@@ -111,13 +111,13 @@ let's take possible numbers from 10 sightings
 
 ::: {.printedClojure}
 ```clojure
-(100 79 1 58 70 85 44 21 59 28)
+(4 83 53 18 8 94 74 77 37 29)
 
 ```
 :::
 
 
-In the first sentence of this section, it is written that PRNG produce deterministic streams of output. It means that instances of a prng with the same algorithm and the same `seed`, produce identical stream of outputs.
+PRNGs produce deterministic streams of output by having some kind of internal state. In Clojure parlance, PRNGs are stateful. During the course of its execution, a PRNG's state follow the same path of changes. We can set the initial state of a PRNG by specifying a state `seed`. Instances of a prng with the same algorithm and the same `seed`, produce identical stream of outputs because those instances are deterministic and start from the same state.
 
 Let's create 2 Mersenne-Twister PRNGs with the same `seed` 42.
 
@@ -205,7 +205,7 @@ Do 2 experiments
 
 ::: {.printedClojure}
 ```clojure
-2
+6
 
 ```
 :::
@@ -222,7 +222,7 @@ Do 2 experiments
 
 ::: {.printedClojure}
 ```clojure
-50
+93
 
 ```
 :::
@@ -230,7 +230,7 @@ Do 2 experiments
 
 By using this box model implemented through codes and running in our computer, we mimic the experiment done in the real world. We can run this experiment many times and do further analysis to the model. There's still a problem that we haven't shown that this model behave like the real world experiment. We'll tackle that problem further in this intro.
 
-Another advantage of using the model is we can create reproducible model. By using `seed` we can ensure the model produce reproducible results. Let's make a `generate-eagle-sightings-box` which given same `seed`, returns reproducible eagle sightings experiment. We can do analysis on the results of the model and we can give the function to another person who can do analysis on the identical results.
+We can create reproducible model. We can imagine doing experiment with a box and then giving the box to another person. That person will have same sequence of tickets drawn from the box. By using seed, we can ensure the model produce reproducible results. Let's make a `generate-eagle-sightings-box` which given same `seed`, returns reproducible eagle sightings experiment. 
 
 
 ::: {.sourceClojure}
@@ -306,27 +306,17 @@ run experiment 2 10 times
 
 both return identical results
 
-**Daniel's**
-1933 - Kolmogorov Axiom for probability theory
 
-Omega Ω - sample space - the box - can be infinite
+## Probability
 
-omega ω - an outcome - a ticket - the seed
+One way to define probability of an event is by counting. Let's take 100,000 tickets from the box, count the occurence of tickets with 7 written on them. The probability of ticket with number 7 is the count of occurrence divided by the total number of tickets picked.
 
-random variable (r.v.) X - a function from Omega to numbers
-so for every omega, X(omega) is a number
-
-event A - a subset of Omega
+generate a box with seed 1234
 
 
 ::: {.sourceClojure}
 ```clojure
-(defn Week [omega]
-  (let [rng (r/rng :mersenne omega)]
-    {:Tuesday-humidity (r/drandom rng 40 100)
-     :Wednesday-humidity (r/drandom rng 40 100)
-     :Thursday-humidity (r/drandom rng 40 100)
-     :Friday-humidity (r/drandom rng 40 100)}))
+(def eagle-sightings-3 (generate-eagle-sightings-box 1234))
 ```
 :::
 
@@ -334,8 +324,9 @@ event A - a subset of Omega
 
 ::: {.sourceClojure}
 ```clojure
-(defn Tuesday-humidity [omega]
-  (:Tuesday-humidity (Week omega)))
+(def ticket-7-count (->> (repeatedly 100000 (fn [] (eagle-sightings-3)))
+                         (filter #(= % 7))
+                         count))
 ```
 :::
 
@@ -343,16 +334,7 @@ event A - a subset of Omega
 
 ::: {.sourceClojure}
 ```clojure
-(defn Wednesday-humidity [omega]
-  (:Wednesday-humidity (Week omega)))
-```
-:::
-
-
-
-::: {.sourceClojure}
-```clojure
-(Tuesday-humidity 9)
+ticket-7-count
 ```
 :::
 
@@ -360,17 +342,18 @@ event A - a subset of Omega
 
 ::: {.printedClojure}
 ```clojure
-62.57346004344359
+987
 
 ```
 :::
 
 
+probability 
+
 
 ::: {.sourceClojure}
 ```clojure
-[(Tuesday-humidity 9)
- (Wednesday-humidity 9)]
+(/ (float ticket-7-count) 100000)
 ```
 :::
 
@@ -378,107 +361,11 @@ event A - a subset of Omega
 
 ::: {.printedClojure}
 ```clojure
-[62.57346004344359 44.10934240138366]
+0.00987
 
 ```
 :::
 
-
-Tuesday-humidity is a random variable.
-A function omega -> number.
-
-
-::: {.sourceClojure}
-```clojure
-(def Omega (range 100000))
-```
-:::
-
-
-What are all the omegas for which
-Tuesday-humidity is less that 60?
-
-
-::: {.sourceClojure}
-```clojure
-(def Tuesday-humidity<60
-  (->> Omega
-       (filter (fn [omega]
-                 (< (Tuesday-humidity omega) 60)))))
-```
-:::
-
-
-
-::: {.sourceClojure}
-```clojure
-(count Omega)
-```
-:::
-
-
-
-::: {.printedClojure}
-```clojure
-100000
-
-```
-:::
-
-
-
-::: {.sourceClojure}
-```clojure
-(count Tuesday-humidity<60)
-```
-:::
-
-
-
-::: {.printedClojure}
-```clojure
-33236
-
-```
-:::
-
-
-Tuesday-humidity<60 is an event.
-
-
-P(Tuesday-humidity<60) - the probability of an event
-
-
-::: {.sourceClojure}
-```clojure
-(/ (float (count Tuesday-humidity<60))
-   (count Omega))
-```
-:::
-
-
-
-::: {.printedClojure}
-```clojure
-0.33236
-
-```
-:::
-
-
-This is one way to define probabilities -
-by counting.
-
-
-
-X is a random variable.
-
-What is the probability that X<60 ?
-
-
-
-missing notions:
-- measurability
 
 
 ```{=html}
@@ -488,5 +375,5 @@ missing notions:
 
 
 ```{=html}
-<div></div>
+<div><pre><small><small>source: src/index.clj</small></small></pre></div>
 ```

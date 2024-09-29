@@ -46,7 +46,7 @@
 
 (repeatedly 10 (fn [] (r/irandom prng0 0 101)))
 
-;; In the first sentence of this section, it is written that PRNG produce deterministic streams of output. It means that instances of a prng with the same algorithm and the same `seed`, produce identical stream of outputs.
+;; PRNGs produce deterministic streams of output by having some kind of internal state. In Clojure parlance, PRNGs are stateful. During the course of its execution, a PRNG's state follow the same path of changes. We can set the initial state of a PRNG by specifying a state `seed`. Instances of a prng with the same algorithm and the same `seed`, produce identical stream of outputs because those instances are deterministic and start from the same state.
 
 ;; Let's create 2 Mersenne-Twister PRNGs with the same `seed` 42.
 (def prng1 (r/rng :mersenne 42))
@@ -75,7 +75,7 @@
 
 ;; By using this box model implemented through codes and running in our computer, we mimic the experiment done in the real world. We can run this experiment many times and do further analysis to the model. There's still a problem that we haven't shown that this model behave like the real world experiment. We'll tackle that problem further in this intro.
 
-;; Another advantage of using the model is we can create reproducible model. By using `seed` we can ensure the model produce reproducible results. Let's make a `generate-eagle-sightings-box` which given same `seed`, returns reproducible eagle sightings experiment. We can do analysis on the results of the model and we can give the function to another person who can do analysis on the identical results.
+;; We can create reproducible model. We can imagine doing experiment with a box and then giving the box to another person. That person will have same sequence of tickets drawn from the box. By using seed, we can ensure the model produce reproducible results. Let's make a `generate-eagle-sightings-box` which given same `seed`, returns reproducible eagle sightings experiment. 
 
 (defn generate-eagle-sightings-box
   "given `seed` for prng, returns eagle sightings function.
@@ -99,3 +99,18 @@
 
 ;; both return identical results
 
+;; ## Probability
+
+;; One way to define probability of an event is by counting. Let's take 100,000 tickets from the box, count the occurence of tickets with 7 written on them. The probability of ticket with number 7 is the count of occurrence divided by the total number of tickets picked.
+
+;; generate a box with seed 1234
+(def eagle-sightings-3 (generate-eagle-sightings-box 1234))
+
+(def ticket-7-count (->> (repeatedly 100000 (fn [] (eagle-sightings-3)))
+                         (filter #(= % 7))
+                         count))
+
+ticket-7-count
+
+;; probability 
+(/ (float ticket-7-count) 100000)
