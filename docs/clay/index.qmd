@@ -92,7 +92,7 @@ In the context of eagle sightings, we use `irandom` function to get a random int
 
 ::: {.printedClojure}
 ```clojure
-22
+97
 
 ```
 :::
@@ -111,7 +111,7 @@ let's take possible numbers from 10 sightings
 
 ::: {.printedClojure}
 ```clojure
-(4 83 53 18 8 94 74 77 37 29)
+(35 4 66 50 17 24 31 2 53 24)
 
 ```
 :::
@@ -205,7 +205,7 @@ Do 2 experiments
 
 ::: {.printedClojure}
 ```clojure
-6
+35
 
 ```
 :::
@@ -222,7 +222,7 @@ Do 2 experiments
 
 ::: {.printedClojure}
 ```clojure
-93
+61
 
 ```
 :::
@@ -321,20 +321,28 @@ generate a box with seed 1234
 :::
 
 
+a function to calculate probability for a ticket outcome from n trials from a box.
+
 
 ::: {.sourceClojure}
 ```clojure
-(def ticket-7-count (->> (repeatedly 100000 (fn [] (eagle-sightings-3)))
-                         (filter #(= % 7))
-                         count))
+(defn ticket-probability
+  "given a box, calculate the probability of a ticket outcome from n trials"
+  [box n ticket]
+  (let [c (->> (repeatedly n (fn [] (box)))
+               (filter #(= % ticket))
+               count)]
+    (/ (float c) n)))
 ```
 :::
 
 
+The probabilities for a 7 ticket outcome from 10 sets of 10 trials
+
 
 ::: {.sourceClojure}
 ```clojure
-ticket-7-count
+(repeatedly 10 (fn [] (ticket-probability eagle-sightings-3 10 7)))
 ```
 :::
 
@@ -342,18 +350,18 @@ ticket-7-count
 
 ::: {.printedClojure}
 ```clojure
-987
+(0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)
 
 ```
 :::
 
 
-probability 
+The 7 tickets rarely occurs, so let's increase the trials to 100
 
 
 ::: {.sourceClojure}
 ```clojure
-(/ (float ticket-7-count) 100000)
+(repeatedly 10 (fn [] (ticket-probability eagle-sightings-3 100 7)))
 ```
 :::
 
@@ -361,7 +369,35 @@ probability
 
 ::: {.printedClojure}
 ```clojure
-0.00987
+(0.0 0.0 0.01 0.0 0.01 0.02 0.02 0.02 0.0 0.0)
+
+```
+:::
+
+
+The 7 ticket shows up with variying probabilities. Let's see what 100,000 trials result
+
+
+::: {.sourceClojure}
+```clojure
+(repeatedly 10 (fn [] (ticket-probability eagle-sightings-3 100000 7)))
+```
+:::
+
+
+
+::: {.printedClojure}
+```clojure
+(0.00989
+ 0.00935
+ 0.00969
+ 0.00971
+ 0.00976
+ 0.00992
+ 0.00985
+ 0.00988
+ 0.0102
+ 0.01026)
 
 ```
 :::

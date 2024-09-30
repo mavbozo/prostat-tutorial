@@ -154,14 +154,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb5"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(r/irandom prng0 <span class="dv">0</span> <span class="dv">101</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="printedClojure">
-<div class="sourceCode" id="cb6"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">22</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">97</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>let’s take possible numbers from 10 sightings</p>
 <div class="sourceClojure">
 <div class="sourceCode" id="cb7"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">repeatedly</span> <span class="dv">10</span> (<span class="kw">fn</span> [] (r/irandom prng0 <span class="dv">0</span> <span class="dv">101</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="printedClojure">
-<div class="sourceCode" id="cb8"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4</span> <span class="dv">83</span> <span class="dv">53</span> <span class="dv">18</span> <span class="dv">8</span> <span class="dv">94</span> <span class="dv">74</span> <span class="dv">77</span> <span class="dv">37</span> <span class="dv">29</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">35</span> <span class="dv">4</span> <span class="dv">66</span> <span class="dv">50</span> <span class="dv">17</span> <span class="dv">24</span> <span class="dv">31</span> <span class="dv">2</span> <span class="dv">53</span> <span class="dv">24</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>PRNGs produce deterministic streams of output by having some kind of internal state. In Clojure parlance, PRNGs are stateful. During the course of its execution, a PRNG’s state follow the same path of changes. We can set the initial state of a PRNG by specifying a state <code>seed</code>. Instances of a prng with the same algorithm and the same <code>seed</code>, produce identical stream of outputs because those instances are deterministic and start from the same state.</p>
 <p>Let’s create 2 Mersenne-Twister PRNGs with the same <code>seed</code> 42.</p>
@@ -200,13 +200,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb16"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(eagle-sightings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="printedClojure">
-<div class="sourceCode" id="cb17"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">35</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="sourceClojure">
 <div class="sourceCode" id="cb18"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(eagle-sightings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="printedClojure">
-<div class="sourceCode" id="cb19"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dv">93</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dv">61</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>By using this box model implemented through codes and running in our computer, we mimic the experiment done in the real world. We can run this experiment many times and do further analysis to the model. There’s still a problem that we haven’t shown that this model behave like the real world experiment. We’ll tackle that problem further in this intro.</p>
 <p>We can create reproducible model. We can imagine doing experiment with a box and then giving the box to another person. That person will have same sequence of tickets drawn from the box. By using seed, we can ensure the model produce reproducible results. Let’s make a <code>generate-eagle-sightings-box</code> which given same <code>seed</code>, returns reproducible eagle sightings experiment.</p>
@@ -250,23 +250,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceClojure">
 <div class="sourceCode" id="cb27"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> eagle-sightings-3 </span>(generate-eagle-sightings-box <span class="dv">1234</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>a function to calculate probability for a ticket outcome from n trials from a box.</p>
 <div class="sourceClojure">
-<div class="sourceCode" id="cb28"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> ticket-7-count </span>(<span class="kw">-&gt;&gt;</span> (<span class="kw">repeatedly</span> <span class="dv">100000</span> (<span class="kw">fn</span> [] (eagle-sightings<span class="dv">-3</span>)))</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                         (<span class="kw">filter</span> #(<span class="kw">=</span> <span class="va">%</span> <span class="dv">7</span>))</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                         <span class="kw">count</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(<span class="bu">defn</span><span class="fu"> ticket-probability</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"given a box, calculate the probability of a ticket outcome from n trials"</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  [box n ticket]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">let</span> [c (<span class="kw">-&gt;&gt;</span> (<span class="kw">repeatedly</span> n (<span class="kw">fn</span> [] (box)))</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>               (<span class="kw">filter</span> #(<span class="kw">=</span> <span class="va">%</span> ticket))</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>               <span class="kw">count</span>)]</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">/</span> (<span class="kw">float</span> c) n)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The probabilities for a 7 ticket outcome from 10 sets of 10 trials</p>
 <div class="sourceClojure">
-<div class="sourceCode" id="cb29"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ticket<span class="dv">-7</span>-count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">repeatedly</span> <span class="dv">10</span> (<span class="kw">fn</span> [] (ticket-probability eagle-sightings<span class="dv">-3</span> <span class="dv">10</span> <span class="dv">7</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="printedClojure">
-<div class="sourceCode" id="cb30"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="dv">987</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.0</span> <span class="fl">0.0</span> <span class="fl">0.0</span> <span class="fl">0.0</span> <span class="fl">0.0</span> <span class="fl">0.0</span> <span class="fl">0.0</span> <span class="fl">0.0</span> <span class="fl">0.0</span> <span class="fl">0.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>probability</p>
+<p>The 7 tickets rarely occurs, so let’s increase the trials to 100</p>
 <div class="sourceClojure">
-<div class="sourceCode" id="cb31"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">/</span> (<span class="kw">float</span> ticket<span class="dv">-7</span>-count) <span class="dv">100000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">repeatedly</span> <span class="dv">10</span> (<span class="kw">fn</span> [] (ticket-probability eagle-sightings<span class="dv">-3</span> <span class="dv">100</span> <span class="dv">7</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="printedClojure">
-<div class="sourceCode" id="cb32"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.00987</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.0</span> <span class="fl">0.0</span> <span class="fl">0.01</span> <span class="fl">0.0</span> <span class="fl">0.01</span> <span class="fl">0.02</span> <span class="fl">0.02</span> <span class="fl">0.02</span> <span class="fl">0.0</span> <span class="fl">0.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The 7 ticket shows up with variying probabilities. Let’s see what 100,000 trials result</p>
+<div class="sourceClojure">
+<div class="sourceCode" id="cb33"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">repeatedly</span> <span class="dv">10</span> (<span class="kw">fn</span> [] (ticket-probability eagle-sightings<span class="dv">-3</span> <span class="dv">100000</span> <span class="dv">7</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="printedClojure">
+<div class="sourceCode" id="cb34"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.00989</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.00935</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.00969</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.00971</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.00976</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.00992</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.00985</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.00988</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.0102</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.01026</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div style="background-color:grey;height:2px;width:100%;"></div>
 <div><pre><small><small>source: src/index.clj</small></small></pre></div>

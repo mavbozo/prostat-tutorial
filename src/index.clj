@@ -103,14 +103,27 @@
 
 ;; One way to define probability of an event is by counting. Let's take 100,000 tickets from the box, count the occurence of tickets with 7 written on them. The probability of ticket with number 7 is the count of occurrence divided by the total number of tickets picked.
 
-;; generate a box with seed 1234
+;; Generate a box with seed 1234
 (def eagle-sightings-3 (generate-eagle-sightings-box 1234))
 
-(def ticket-7-count (->> (repeatedly 100000 (fn [] (eagle-sightings-3)))
-                         (filter #(= % 7))
-                         count))
+;; A function to calculate probability for a ticket outcome from n trials from a box.
+(defn ticket-probability
+  "given a box, calculate the probability of a ticket outcome from n trials"
+  [box n ticket]
+  (let [c (->> (repeatedly n (fn [] (box)))
+               (filter #(= % ticket))
+               count)]
+    (/ (float c) n)))
 
-ticket-7-count
+;; The probabilities for a 7 ticket outcome from 10 sets of 10 trials
+(repeatedly 10 (fn [] (ticket-probability eagle-sightings-3 10 7)))
 
-;; probability 
-(/ (float ticket-7-count) 100000)
+;; The 7 tickets rarely occurs, so let's increase the trials to 100
+
+(repeatedly 10 (fn [] (ticket-probability eagle-sightings-3 100 7)))
+
+;; The 7 ticket shows up with varying probabilities. Let's see what 100,000 trials result
+
+(repeatedly 10 (fn [] (ticket-probability eagle-sightings-3 100000 7)))
+
+;; With large amount of trials, the probability for a 7 outcome is about 0.01.
