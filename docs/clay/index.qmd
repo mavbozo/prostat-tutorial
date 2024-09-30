@@ -92,7 +92,7 @@ In the context of eagle sightings, we use `irandom` function to get a random int
 
 ::: {.printedClojure}
 ```clojure
-97
+20
 
 ```
 :::
@@ -111,7 +111,7 @@ let's take possible numbers from 10 sightings
 
 ::: {.printedClojure}
 ```clojure
-(35 4 66 50 17 24 31 2 53 24)
+(23 35 33 25 87 69 11 42 56 82)
 
 ```
 :::
@@ -205,7 +205,7 @@ Do 2 experiments
 
 ::: {.printedClojure}
 ```clojure
-35
+11
 
 ```
 :::
@@ -222,7 +222,7 @@ Do 2 experiments
 
 ::: {.printedClojure}
 ```clojure
-61
+39
 
 ```
 :::
@@ -311,7 +311,7 @@ both return identical results
 
 One way to define probability of an event is by counting. Let's take 100,000 tickets from the box, count the occurence of tickets with 7 written on them. The probability of ticket with number 7 is the count of occurrence divided by the total number of tickets picked.
 
-generate a box with seed 1234
+Generate a box with seed 1234
 
 
 ::: {.sourceClojure}
@@ -321,7 +321,7 @@ generate a box with seed 1234
 :::
 
 
-a function to calculate probability for a ticket outcome from n trials from a box.
+A function to calculate probability for a ticket outcome from n trials from a box.
 
 
 ::: {.sourceClojure}
@@ -375,7 +375,7 @@ The 7 tickets rarely occurs, so let's increase the trials to 100
 :::
 
 
-The 7 ticket shows up with variying probabilities. Let's see what 100,000 trials result
+The 7 ticket shows up with varying probabilities. Let's see what 100,000 trials result
 
 
 ::: {.sourceClojure}
@@ -402,6 +402,8 @@ The 7 ticket shows up with variying probabilities. Let's see what 100,000 trials
 ```
 :::
 
+
+With large amount of trials, the probability for a 7 outcome is about 0.01.
 
 
 ```{=html}
