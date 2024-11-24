@@ -3,6 +3,8 @@
   (:require [fastmath.random :as r]
             [scicloj.kindly.v4.kind :as kind]))
 
+;; **Obsolete**: I replaced this tutorial with new better one in [https://github.com/mavbozo/clj-probstat-tutorial](https://github.com/mavbozo/clj-probstat-tutorial)
+
 ;; This tutorial assumes some familiarity with Clojure and with high-school maths (algebra, probability, statistics, _etc_.).
 
 ;; We use Clojure and fastmath library in this intro.

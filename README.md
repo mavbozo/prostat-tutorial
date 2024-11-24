@@ -1,12 +1,6 @@
 # Intro to Probability and Statistics
 
-Work in Progress for **Intro to Probability and Statistics**
-
-## Usage
-
-See `src/index.clj` for the draft. Use clay to render the pages.
-
-The latest published draft can be read here [https://mavbozo.github.io/prostat-tutorial/clay/](https://mavbozo.github.io/prostat-tutorial/clay/)
+**Obsolete** The new repository is in [clj-probstat-tutorial](https://github.com/mavbozo/clj-probstat-tutorial) 
 
 ## License
 
